@@ -21,15 +21,13 @@ void insertion_sort_list(listint_t **list)
 		aux = current;
 		while (aux->prev != NULL && aux->prev->n > aux->n)
 		{
-			aux->prev->next = aux->next;
 			if (aux->next != NULL)
 			{
-				aux->prev = aux->prev->next;
+				aux->next->prev = aux->prev;
 			}
+			aux->prev->next = aux->next;
 			aux->next = aux->prev;
-			aux->prev = aux->prev->next;
-			aux->prev->next = aux;
-
+			aux->prev = aux->prev->prev;
 			if (aux->prev == NULL)
 			{
 				*list = aux;
@@ -38,11 +36,9 @@ void insertion_sort_list(listint_t **list)
 			{
 				aux->prev->next = aux;
 			}
+			aux->next->prev = aux;
 			print_list(*list);
 		}
 		current = current->next;
 	}
 }
-
-
-
